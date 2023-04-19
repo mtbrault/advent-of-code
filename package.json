@@ -4,13 +4,13 @@
   "description": "js solution for advent of code challenges",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint --ext 'js' 2022"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mtbrault/advent-of-code-js.git"
   },
-  "author": "",
+  "author": "Matthieu BRAULT",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mtbrault/advent-of-code-js/issues"
