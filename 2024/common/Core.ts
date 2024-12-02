@@ -18,7 +18,7 @@ export default abstract class Core {
         const result = func();
 
         const end = process.hrtime(start);
-        console.log(`${name}${result}, in ${end[0] * 1000 + end[1] / 1e6}ms`)
+        console.log(`${name}${result ?? ''}, in ${end[0] * 1000 + end[1] / 1e6}ms`)
     }
 
     public run(): void {
