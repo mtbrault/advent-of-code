@@ -2,14 +2,15 @@ import fs from "fs";
 
 export default abstract class Core {
     protected lines: string[] = [];
+    protected input: string;
 
     constructor(filename: string) {
-        const input = fs.readFileSync(filename, { encoding: 'utf8', flag: 'r' });
-        this.lines = input.split('\n');
+        this.input = fs.readFileSync(filename, { encoding: 'utf8', flag: 'r' });
+        this.lines = this.input.split('\n');
     }
 
-    protected abstract step1(): unknown;
-    protected abstract step2(): unknown;
+    protected abstract step1(): number | string;
+    protected abstract step2(): number | string;
     protected abstract parse(): void;
 
     private runFuncWithTimeCompute(func: () => unknown, name: string): void {
