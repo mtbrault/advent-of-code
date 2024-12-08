@@ -12,9 +12,7 @@ class Run extends Core {
 
     protected step1(): number {
         return this.operations.reduce((acc, [total, numbers]) => {
-            const copy = [...numbers];
-            const firstNumber = copy.shift() as number;
-            const possibleResults = this.possibleResults(firstNumber, copy);
+            const possibleResults = this.possibleResults(numbers[0], numbers, 1);
 
             return acc + (possibleResults.includes(total) ? total : 0);
         }, 0);
@@ -22,24 +20,20 @@ class Run extends Core {
 
     protected step2(): number {
         return this.operations.reduce((acc, [total, numbers]) => {
-            const copy = [...numbers];
-            const firstNumber = copy.shift() as number;
-            const possibleResults = this.possibleResults(firstNumber, copy, true);
+            const possibleResults = this.possibleResults(numbers[0], numbers, 1, true);
 
             return acc + (possibleResults.includes(total) ? total : 0);
         }, 0);
     }
 
-    private possibleResults(acc: number, numbers: number[], useConcat = false): number[] {
-        if (numbers.length === 0) {
+    private possibleResults(acc: number, numbers: number[], index: number, useConcat = false): number[] {
+        if (index === numbers.length) {
             return [acc];
         }
 
-        const copy = [...numbers];
-        const currentNumber = copy.shift() as number;
-        const add = this.possibleResults(acc + currentNumber, copy, useConcat);
-        const multiply = this.possibleResults(acc * currentNumber, copy, useConcat);
-        const concat = useConcat ? this.possibleResults(Number(`${acc}${currentNumber}`), copy, useConcat) : [];
+        const add = this.possibleResults(acc + numbers[index], numbers, index + 1, useConcat);
+        const multiply = this.possibleResults(acc * numbers[index], numbers, index + 1, useConcat);
+        const concat = useConcat ? this.possibleResults(Number(`${acc}${numbers[index]}`), numbers, index + 1, useConcat) : [];
 
         return [...add, ...multiply, ...concat];
     }
